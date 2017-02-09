@@ -1,0 +1,6 @@
+public static byte[] ExtractResource(String filename)
+{
+    ResourceManager Manager = new ResourceManager("[resname]", Assembly.GetExecutingAssembly());
+    byte[] bytes = (byte[])Manager.GetObject(filename);
+    return bytes;
+}

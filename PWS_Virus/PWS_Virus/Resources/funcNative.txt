@@ -1,0 +1,19 @@
+[DllImport("kernel32.dll")]
+static extern IntPtr GetModuleHandle(string module);
+[DllImport("kernel32.dll", SetLastError = true)]
+static extern IntPtr FindResource(IntPtr hModule, string lpName, string lpType);
+[DllImport("kernel32.dll", SetLastError = true)]
+static extern IntPtr LoadResource(IntPtr hModule, IntPtr hResInfo);
+[DllImport("kernel32.dll", SetLastError = true)]
+static extern uint SizeofResource(IntPtr hModule, IntPtr hResInfo);
+
+public static byte[] ExtractResource(String filename)
+{
+    IntPtr hModule = GetModuleHandle(Assembly.GetExecutingAssembly().Location);
+    IntPtr loc = FindResource(hModule, filename, "RT_RCDATA");
+    IntPtr x = LoadResource(hModule, loc);
+    uint size = SizeofResource(hModule, loc);
+    byte[] ret = new byte[size];
+    Marshal.Copy(x, ret, 0, (int)size);
+    return ret;
+}
